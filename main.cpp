@@ -16,6 +16,7 @@ struct IDraw {
 
 struct Dot : IDraw {
   Dot(int x, int y);
+  explicit Dot(p_t dd);
   p_t begin() const override;
   p_t next(p_t) const override;
 
@@ -32,7 +33,8 @@ int main() {
   std::cout << (a == b) << "\n";
 }
 
-topit::Dot(int x, int y) : IDraw(), d{x, y} {}
+topit::Dot::Dot(p_t dd) : IDraw(), d{dd} {}
+topit::Dot::Dot(int x, int y) : IDraw(), d{x, y} {}
 topit::p_t topit::Dot::begin() const { return d; }
 topit::p_t topit::Dot::next(p_t prev) const {
   if (prev != begin()) {

@@ -28,9 +28,30 @@ bool operator!=(p_t, p_t);
 } // namespace topit
 
 int main() {
-  using topit::p_t;
-  p_t a{1, 0}, b{1, 0};
-  std::cout << (a == b) << "\n";
+  using topit::Dot;
+  using topit::IDraw;
+  IDraw *shps[3] = {};
+  int err = 0;
+  try {
+    shps[0] = new Dot(0, 0);
+    shps[1] = new Dot(5, 7);
+    shps[2] = new Dot(-5, -2);
+    // TODO:
+    // [1]достать все точки фигуры
+    // [2]посчитать ограничивающий прямоугольник
+    // [3]подготовить полотно (canvas) нужного размера
+    // - заполнить полотно '.'
+    // [4] нарисовать на полотне все точки(которые достали из фигур)
+    // - будем рисовать '#'
+    // [5] вывести полотно на экран
+  } catch (...) {
+    err = 2;
+    std::cerr << "Bad impl";
+  }
+  delete shps[0];
+  delete shps[1];
+  delete shps[2];
+  return err;
 }
 
 topit::Dot::Dot(p_t dd) : IDraw(), d{dd} {}

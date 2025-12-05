@@ -26,6 +26,7 @@ struct Dot : IDraw {
 size_t points(const IDraw &d, p_t **pts, size_t &s);
 f_t frame(const p_t *pts, size_t s);
 char *canvas(f_t fr, char fill);
+void paint(char *cnv, f_t fr, p_t p, char fill);
 
 bool operator==(p_t, p_t);
 bool operator!=(p_t, p_t);
@@ -50,8 +51,9 @@ int main() {
     }
     f_t fr = frame(pts, s); // огран прямоугольник
     char *cnv = canvas(fr, '.');
-    // [3]подготовить полотно (canvas) нужного размера
-    // - заполнить полотно '.'
+    for (size_t i; i < s; ++i) {
+      paint(cnv, fr, pts[i], '#');
+    }
     // [4] нарисовать на полотне все точки(которые достали из фигур)
     // - будем рисовать '#'
     // [5] вывести полотно на экран

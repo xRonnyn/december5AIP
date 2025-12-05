@@ -23,21 +23,31 @@ struct Dot : IDraw {
   p_t d;
 };
 
+size_t points(const IDraw &d, p_t **pts, size_t &s);
+f_t frame(const p_t *pts, size_t s);
+
 bool operator==(p_t, p_t);
 bool operator!=(p_t, p_t);
 } // namespace topit
 
 int main() {
   using topit::Dot;
+  using topit::f_t;
   using topit::IDraw;
+  using topit::p_t;
   IDraw *shps[3] = {};
+  p_t *pts = nullptr;
   int err = 0;
+  size_t s = 0;
   try {
     shps[0] = new Dot(0, 0);
     shps[1] = new Dot(5, 7);
     shps[2] = new Dot(-5, -2);
     // TODO:
-    // [1]достать все точки фигуры
+    for (size_t i = 0; i < 3; ++i) {
+      s += points(*(shps[i]), &pts, s);
+    }
+    f_t fr = frame(pts, s); // огран прямоугольник
     // [2]посчитать ограничивающий прямоугольник
     // [3]подготовить полотно (canvas) нужного размера
     // - заполнить полотно '.'
@@ -48,6 +58,7 @@ int main() {
     err = 2;
     std::cerr << "Bad impl";
   }
+  delete[] pts;
   delete shps[0];
   delete shps[1];
   delete shps[2];

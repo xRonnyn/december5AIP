@@ -25,6 +25,7 @@ struct Dot : IDraw {
 
 size_t points(const IDraw &d, p_t **pts, size_t &s);
 f_t frame(const p_t *pts, size_t s);
+char *canvas(f_t fr, char fill);
 
 bool operator==(p_t, p_t);
 bool operator!=(p_t, p_t);
@@ -48,12 +49,13 @@ int main() {
       s += points(*(shps[i]), &pts, s);
     }
     f_t fr = frame(pts, s); // огран прямоугольник
-    // [2]посчитать ограничивающий прямоугольник
+    char *cnv = canvas(fr, '.');
     // [3]подготовить полотно (canvas) нужного размера
     // - заполнить полотно '.'
     // [4] нарисовать на полотне все точки(которые достали из фигур)
     // - будем рисовать '#'
     // [5] вывести полотно на экран
+    delete[] cnv;
   } catch (...) {
     err = 2;
     std::cerr << "Bad impl";

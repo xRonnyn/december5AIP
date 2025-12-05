@@ -15,8 +15,11 @@ struct IDraw {
 };
 
 struct Dot : IDraw {
+  Dot(int x, int y);
   p_t begin() const override;
   p_t next(p_t) const override;
+
+  p_t d;
 };
 
 bool operator==(p_t, p_t);
@@ -27,6 +30,15 @@ int main() {
   using topit::p_t;
   p_t a{1, 0}, b{1, 0};
   std::cout << (a == b) << "\n";
+}
+
+topit::Dot(int x, int y) : IDraw(), d{x, y} {}
+topit::p_t topit::Dot::begin() const { return d; }
+topit::p_t topit::Dot::next(p_t prev) const {
+  if (prev != begin()) {
+    throw std::logic_error("bad impl");
+  }
+  return d;
 }
 bool topit::operator==(p_t a, p_t b) { return a.x == b.x && a.y == b.y; }
 bool topit::operator!=(p_t a, p_t b) { return !(a == b); }
